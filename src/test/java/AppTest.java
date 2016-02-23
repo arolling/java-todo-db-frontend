@@ -36,4 +36,39 @@ public class AppTest extends FluentTest {
     submit(".btn");
     assertThat(pageSource()).contains("Household");
   }
+
+  @Test
+  public void singleCategoryPageIsDisplayed() {
+    Category testCategory = new Category("Yardwork");
+    testCategory.save();
+    String categoryPath = String.format("http://localhost:4567/categories/%d", testCategory.getId());
+    goTo(categoryPath);
+    assertThat(pageSource()).contains("Yardwork");
+  }
+
+  @Test
+  public void addTaskFormAddsTask() {
+    Category testCategory = new Category("Yardwork");
+    testCategory.save();
+    String categoryPath = String.format("http://localhost:4567/categories/%d", testCategory.getId());
+    goTo(categoryPath);
+    fill("#newTask").with("Weeding");
+    fill("#taskDueDate").with("2016-02-24T10:00");
+    submit(".btn");
+    assertThat(pageSource()).contains("Weeding");
+  }
+
+  // @Test
+  // public void allTasksDisplayDescriptionOnCategoryPage() {
+  //   Category myCategory = new Category("Household chores");
+  //   myCategory.save();
+  //   Task firstTask = new Task("Mow the lawn", myCategory.getId());
+  //   firstTask.save()
+  //   Task secondTask = new Task("Do the dishes", myCategory.getId());
+  //   secondTask.save()
+  //   String categoryPath = String.format("http://localhost:4567/categories/%d", myCategory.getId());
+  //   goTo(categoryPath);
+  //   assertThat(pageSource()).contains("Mow the lawn");
+  //   assertThat(pageSource()).contains("Do the dishes");
+  // }
 }

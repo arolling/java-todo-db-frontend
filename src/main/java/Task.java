@@ -30,8 +30,6 @@ public class Task {
   public Task(String description, int categoryId, String time) {
     time = time.replace("T", " ");
     time += ":00";
-    // SimpleDateFormat timeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    // dueDate = timeFormatter.parse(time);
     dueDate = Timestamp.valueOf(time);
     this.description = description;
     this.categoryId = categoryId;

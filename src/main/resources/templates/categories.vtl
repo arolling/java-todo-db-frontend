@@ -16,7 +16,7 @@ categories.vtl
 
   <ul>
     #foreach($category in $allCategories)
-      <li>$category.getName()</li>
+      <li><a href="categories/$category.getId()">$category.getName()</a></li>
     #end
   </ul>
 
