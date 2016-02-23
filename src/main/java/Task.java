@@ -23,6 +23,10 @@ public class Task {
     return description;
   }
 
+  public Timestamp getDueDate() {
+    return dueDate;
+  }
+
   public Task(String description, int categoryId, String time) {
     time = time.replace("T", " ");
     time += ":00";
@@ -41,7 +45,9 @@ public class Task {
       Task newTask = (Task) otherTask;
       return this.getDescription().equals(newTask.getDescription()) &&
               this.getId() == newTask.getId() &&
+              this.getDueDate().equals(newTask.getDueDate()) &&
               this.getCategoryId() == newTask.getCategoryId();
+
     }
   }
 

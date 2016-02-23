@@ -10,7 +10,7 @@ public class TaskTest {
 
   @Test
   public void all_emptyAtFirst(){
-  assertEquals(Task.all().size(), 0);
+    assertEquals(Task.all().size(), 0);
   }
 
   @Test
@@ -18,6 +18,13 @@ public class TaskTest {
     Task firstTask = new Task("Mow the lawn", 5, "2016-02-24T03:58");
     Task secondTask = new Task("Mow the lawn", 5, "2016-02-24T03:58");
     assertTrue(firstTask.equals(secondTask));
+  }
+
+  @Test
+  public void equals_returnsTrueIfDueDatesAretheSame() {
+    Task firstTask = new Task("Mow the lawn", 5, "2016-02-24T03:58");
+    Task secondTask = new Task("Mow the lawn", 5, "2016-02-24T03:58");
+    assertEquals(firstTask.getDueDate(), secondTask.getDueDate());
   }
 
   @Test
