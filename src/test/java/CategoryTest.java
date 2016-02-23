@@ -38,9 +38,9 @@ public class CategoryTest {
 	public void getTasks_retrievesAllTasksFromDatabase_tasksList() {
 		Category myCategory = new Category("Household chores");
 		myCategory.save();
-		Task firstTask = new Task("Mow the lawn", myCategory.getId());
+		Task firstTask = new Task("Mow the lawn", myCategory.getId(), "2016-02-24T03:58");
 		firstTask.save();
-		Task secondTask = new Task("Do the dishes", myCategory.getId());
+		Task secondTask = new Task("Do the dishes", myCategory.getId(), "2016-02-24T03:58");
 		secondTask.save();
 		Task[] tasks = new Task[] {firstTask, secondTask};
 		assertTrue(myCategory.getTasks().containsAll(Arrays.asList(tasks)));
