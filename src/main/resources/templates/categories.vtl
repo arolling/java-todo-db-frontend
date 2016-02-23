@@ -1,0 +1,23 @@
+categories.vtl
+
+<h3>Task List</h3>
+
+<form action="/categories" method="post">
+  <div class="form-group">
+    <label for="newCategory">Category</label>
+    <input class="form-control" type="text" name="newCategory" id="newCategory">
+  </div>
+  <button type="submit" class="btn btn-default">
+    Add Category
+  </button>
+</form>
+
+#if ($allCategories)
+
+  <ul>
+    #foreach($category in $allCategories)
+      <li>$category.getName()</li>
+    #end
+  </ul>
+
+#end
