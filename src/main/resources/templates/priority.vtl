@@ -1,0 +1,14 @@
+priority.vtl
+
+<div class="jumbotron">
+<h1>Task Manager!</h1>
+</div>
+
+<h2>High Priority Tasks:</h2>
+#foreach ($task in $priorityTasks)
+<h4>$task.getDescription()</h4>
+Due: $task.getDueDate() <br />
+Category: $task.getCategoryName()
+<hr />
+#end
+<h2><a href="/categories">Manage Categories</a></h2>

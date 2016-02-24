@@ -96,4 +96,16 @@ public class Task {
         .executeUpdate();
     }
   }
+
+  public static List<Task> getPriorityTasks() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM tasks ORDER BY duedate LIMIT 5";
+      return con.createQuery(sql).executeAndFetch(Task.class);
+    }
+  }
+
+  public String getCategoryName() {
+    Category foundCategory = Category.find(categoryId);
+    return foundCategory.getName();
+  }
 }

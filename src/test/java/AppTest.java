@@ -54,21 +54,38 @@ public class AppTest extends FluentTest {
     goTo(categoryPath);
     fill("#newTask").with("Weeding");
     fill("#taskDueDate").with("2016-02-24T10:00");
-    submit(".btn");
+    submit("#addTask");
     assertThat(pageSource()).contains("Weeding");
   }
 
-  // @Test
-  // public void allTasksDisplayDescriptionOnCategoryPage() {
-  //   Category myCategory = new Category("Household chores");
-  //   myCategory.save();
-  //   Task firstTask = new Task("Mow the lawn", myCategory.getId());
-  //   firstTask.save()
-  //   Task secondTask = new Task("Do the dishes", myCategory.getId());
-  //   secondTask.save()
-  //   String categoryPath = String.format("http://localhost:4567/categories/%d", myCategory.getId());
-  //   goTo(categoryPath);
-  //   assertThat(pageSource()).contains("Mow the lawn");
-  //   assertThat(pageSource()).contains("Do the dishes");
-  // }
+  @Test
+  public void allTasksDisplayDescriptionOnCategoryPage() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task firstTask = new Task("Mow the lawn", myCategory.getId(), "2016-02-25T10:00");
+    firstTask.save();
+    Task secondTask = new Task("Do the dishes", myCategory.getId(), "2016-02-27T10:00");
+    secondTask.save();
+    String categoryPath = String.format("http://localhost:4567/categories/%d", myCategory.getId());
+    goTo(categoryPath);
+    assertThat(pageSource()).contains("Mow the lawn");
+    assertThat(pageSource()).contains("Do the dishes");
+  }
+
+  @Test
+  public void deleteTasksOnCategoryPage() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task firstTask = new Task("Mow the lawn", myCategory.getId(), "2016-02-25T10:00");
+    firstTask.save();
+    Task secondTask = new Task("Do the dishes", myCategory.getId(), "2016-02-27T10:00");
+    secondTask.save();
+    String categoryPath = String.format("http://localhost:4567/categories/%d", myCategory.getId());
+    goTo(categoryPath);
+    click("#" + secondTask.getId());
+    submit("#delete");
+    assertThat(pageSource()).contains("Mow the lawn");
+    assertThat(!(pageSource()).contains("Do the dishes"));
+  }
+
 }

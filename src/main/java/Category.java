@@ -48,19 +48,21 @@ public class Category {
   public static Category find(int id) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM Categories where id=:id";
-      Category Category = con.createQuery(sql)
+      Category category = con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Category.class);
-      return Category;
+      return category;
     }
   }
 
 	public List<Task> getTasks() {
 		try(Connection con = DB.sql2o.open()) {
-			String sql = "SELECT * FROM tasks where categoryId=:id";
+			String sql = "SELECT * FROM tasks where categoryId=:id ORDER BY duedate";
 			return con.createQuery(sql)
 				.addParameter("id", this.id)
 				.executeAndFetch(Task.class);
 		}
 	}
+
+
 }

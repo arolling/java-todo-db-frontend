@@ -78,12 +78,4 @@ public class TaskTest {
     myTask.delete();
     assertFalse(Task.all().contains(myTask));
   }
-
-  // @Test
-  // public void addDueDate_addsDueDate() {
-  //   Task myTask = new Task("Eat your spinach", 2);
-  //   myTask.addDueDate("Feb/23 10:30");
-  //   myTask.save();
-  //   assertEquals(myTask.getDueDate(), "Feb/23 10:30");
-  // }
 }

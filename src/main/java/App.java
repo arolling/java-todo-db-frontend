@@ -4,6 +4,7 @@ import java.util.List;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
+import spark.Request.*;
 
 public class App {
   public static void main(String[] args) {
@@ -51,6 +52,28 @@ public class App {
       //model.put("allTasks", Category.find(categoryID).getTasks());
       model.put("category", Category.find(categoryID));
       model.put("template", "templates/categoryTasks.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/categories/delete/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int categoryID = Integer.parseInt(request.params(":id"));
+
+      String[] deletedTaskIDs = request.queryParamsValues("deleteTask");
+      for (String taskID : deletedTaskIDs) {
+        Task foundTask = Task.find(Integer.parseInt(taskID));
+        foundTask.delete();
+      }
+      model.put("category", Category.find(categoryID));
+      model.put("template", "templates/categoryTasks.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/priority", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+
+      model.put("priorityTasks", Task.getPriorityTasks());
+      model.put("template", "templates/priority.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }

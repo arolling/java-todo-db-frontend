@@ -6,11 +6,17 @@ categoryTasks.vtl
 
     #if($category.getTasks())
 
-      <ul>
-        #foreach ($task in $category.getTasks())
-        <li>$task.getDescription()</li>
-        #end
-      </ul>
+<form action="/categories/delete/$category.getId()" method="post">
+      #foreach ($task in $category.getTasks())
+      $task.getDescription()<br />
+      Due: $task.getDueDate()
+      <input type="checkbox" name="deleteTask" value="$task.getId()" id="$task.getId()">
+      <hr />
+      #end
+      <button type="submit" class="btn btn-default" id="delete">
+        Remove Task
+      </button>
+</form>
 
     #end
 <hr />
@@ -21,9 +27,12 @@ categoryTasks.vtl
   </div>
   <div class="form-group">
     <label for="taskDueDate">Due Date</label>
-    <input class="form-control" type="text" name="taskDueDate" id="taskDueDate">
+    <input class="form-control" type="datetime-local" name="taskDueDate" id="taskDueDate">
   </div>
-  <button type="submit" class="btn btn-default">
+  <button type="submit" class="btn btn-default" id="addTask">
     Add Task
   </button>
 </form>
+
+<a href="/categories">Manage Categories</a>
+<a href="/priority">See Top 5 Tasks</a>
